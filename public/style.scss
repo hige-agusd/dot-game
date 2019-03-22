@@ -1,0 +1,389 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+// Colors
+$bgColor: #565e30;
+$mainColor: #26302E; //#212529;
+$mainColorSemiTranslucent: #26302ef0;
+$mainColorTranslucent: #26302e80;
+$fontColor: $mainColor;
+$shadowColor: #27302e78;
+
+$defaultFont: 'Press Start 2P';
+
+// Sizes
+$mdHeaderHeight: 90px;
+$mdSectionHeight: 45px;
+$mdButtonWidth: 130px;
+$mdDefaultFontSize: 18px;
+$mdLargeFontSize: 27px;
+$mdLargerFontSize: 30px;
+$mdPauseMsgFontSize: $mdLargeFontSize;
+$mdScoreFontSize: $mdLargerFontSize;
+
+$smHeaderHeight: 65px;
+
+$xsHeaderHeight: 100px;
+$xsSectionHeight: 35px;
+$xsButtonWidth: 105px;
+$xsDefaultFontSize: 14px;
+$xsLargeFontSize: 20px;
+$xsLargerFontSize: 22px;
+$xsPauseMsgFontSize: $xsLargeFontSize;
+$xsScoreFontSize: $xsLargerFontSize;
+
+%nes-box {
+    -webkit-appearance: none;
+    align-items: flex-start;
+    border-radius: 0;
+    position: relative;
+    display: inline-block;
+    padding: 10px 12px;
+    // margin: 4px;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    user-select: none;
+    border: none;
+    color: $mainColor;
+    background-color: $bgColor;
+    box-shadow: inset -4px -4px $shadowColor;
+    &::after, &::before {
+      position: absolute;
+      box-sizing: content-box;
+      width: 100%;
+      height: 100%;
+      content: "";
+      border-color: $mainColor;
+      border-style: solid;
+      border-width: 4px;
+    }
+    &::after {
+      top: 0;
+      left: -4px;
+      border-top: 2px;
+      border-bottom: 2px;
+    }
+    &::before {
+      top: -4px;
+      left: 0;
+      border-right: 2px;
+      border-left: 2px;
+    }
+  
+}
+@mixin pixel-dot( $width ) {
+  background: $mainColor;
+  box-shadow:
+    4*$width 0 $mainColorSemiTranslucent, 
+    -4*$width 0 $mainColorSemiTranslucent, 
+    0 (-4*$width) $mainColorSemiTranslucent, 
+    0 4*$width $mainColorSemiTranslucent,
+    $width 0 0 2*$width $mainColorSemiTranslucent,
+    -$width 0 0 2*$width $mainColorSemiTranslucent,
+    0 (-$width) 0 2*$width $mainColorSemiTranslucent,
+    0 $width 0 2*$width $mainColorSemiTranslucent,
+    5*$width 0 $mainColorSemiTranslucent, 
+    -5*$width 0 $mainColorSemiTranslucent,
+    0 (-5*$width) $mainColorSemiTranslucent, 
+    0 5*$width $mainColorSemiTranslucent,
+    0 0 0 3*$width $mainColorSemiTranslucent,
+    0 2*$width 0 2*$width $mainColorSemiTranslucent,
+    0 (-2*$width) 0 2*$width $mainColorSemiTranslucent,
+    2*$width 0 0 2*$width $mainColorSemiTranslucent,
+    (-2*$width) 0 0 2*$width $mainColorSemiTranslucent;
+      
+  display: inline-block;
+  padding: $width - 1 ;
+  margin: (4*$width + 1) auto;  
+}
+
+* {
+  box-sizing: border-box;
+  color: $fontColor;
+  font-family: $defaultFont;
+  font-size: $xsDefaultFontSize;
+  -webkit-font-smoothing: antialiased;
+  &:focus {
+    outline:none;
+  }
+}
+
+html, body {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+body {
+  background: $bgColor;
+  margin: 0;
+  position: relative;
+}
+
+.sm-half {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%
+}
+
+.sm-whole {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%
+}
+
+header {
+  background: $bgColor;
+  border-bottom: 2px solid $mainColor;
+  display: flex;
+  flex-wrap: wrap;
+  height: $xsHeaderHeight;
+  padding: 15px 35px 10px 35px;
+  position: absolute;
+  width: 100%;
+  z-index: 99;
+  & section {
+    display: inline-block;
+    height: $xsSectionHeight;
+  }
+}
+.score {
+  &__label {
+    display: block;
+  }
+  &__value {
+    display: inline-block;
+    font-size: $xsScoreFontSize;
+    padding-top: 3px;
+  }
+}
+.action {
+  padding-top: 1px;
+  text-align: right;
+  &__btn {
+    @extend %nes-box;
+    margin-right: 5px;
+    width: $xsButtonWidth;
+  }
+}
+.speed {
+  padding-top: 15px;
+  text-align: center;
+  &__label {
+    display: inline-block;
+    width: 112px;
+    text-align: left;
+  }
+  &__slider {
+    -webkit-appearance: none;
+    background: $mainColor;
+    //float: right;
+    height: 15px;
+    margin-top: 0;
+    width: 55%;
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      border: 1px solid $mainColor;
+      background: $bgColor;
+      height: 15px;
+      width: 25px;
+    }
+  }
+}
+$shadowSize: 10%;
+.game-area {
+  height: calc(100% - 100px);
+  margin-top: $xsHeaderHeight;
+  overflow-y: hidden;
+  width: 100%;
+}
+.overlay {
+  align-items: center;
+  background:  $mainColorTranslucent;
+  display: none;
+  height: calc(100% - 100px);
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  &.paused {
+    display: flex;
+  }
+  &__message {
+    @extend %nes-box;
+    font-size: $xsPauseMsgFontSize;
+    transform: translateY(-50px); // 50px == Half the header height
+  }
+}
+.dot-wrapper {
+  background: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  -webkit-transition: all 1s linear;
+  position: absolute;
+  text-align: center;
+}
+.dot {
+  background: $mainColor;
+  border-radius: 50%;
+  box-shadow: 2px 2px $shadowColor;
+  -webkit-transition: all 1s linear;
+  position: absolute;
+}
+.dot-1 {
+    @include pixel-dot( 1px);
+    margin: 5px auto 13px auto;
+    padding: 1px 1px 0 0;
+}
+.dot-2 {
+    @include pixel-dot( 2px);
+}
+.dot-3 {
+    @include pixel-dot( 3px);
+}
+.dot-4 {
+    @include pixel-dot( 4px);
+}
+.dot-5 {
+    @include pixel-dot( 5px);
+}
+.dot-6 {
+    @include pixel-dot( 6px);
+}
+.dot-7 {
+    @include pixel-dot( 7px);
+}
+.dot-8 {
+    @include pixel-dot( 8px);
+}
+.dot-9 {
+    @include pixel-dot( 9px);
+}
+.dot-10 {
+    @include pixel-dot( 10px);
+}
+
+@media (min-width:640px) {
+  .md-3rd {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%
+  }
+  header {
+    padding: 10px 30px;
+    height: $smHeaderHeight;
+  }
+  .score {
+    padding-top: 6px;
+    white-space: nowrap;
+    &__label {
+      display: inline-block;
+    }
+  }
+  .action {
+    padding-top: 4px;
+    text-align: center;
+    &__btn {
+      margin-right: 5px;
+    }
+  }
+  .speed {
+    float: right;
+    padding-top: 4px;
+    text-align: right;
+    &__label {
+      display: inline;
+      margin-right: 4px;
+      text-align: right;
+    }
+    &__value {
+      display: inline-block;
+      width: 28px;
+    }
+    &__slider {
+      -webkit-appearance: none;
+      float: right;
+      margin-top: 4px;
+      width: 80%;
+    }
+  }
+  .game-area {
+    margin-top: $smHeaderHeight;
+    height: calc(100% - 65px);
+  }
+  .overlay {
+    height: calc(100% - 65px);
+    &__message {
+      transform: translateY(-34px); // 34px ~= Half the header height
+    }
+  }
+}
+
+@media (min-width:768px) {
+  * {
+    font-size: $mdDefaultFontSize;
+  }
+  .md-3rd {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%
+  }
+  header {
+    height: $mdHeaderHeight;
+    padding: 15px 30px 10px 30px;
+    & section {
+      height: $mdSectionHeight;
+    }
+  }
+  .score {
+    padding-top: 6px;
+    white-space: nowrap;
+    &__label {
+      display: inline-block;
+    }
+    &__value {
+      font-size: $mdScoreFontSize;
+    }
+  }
+  .action {
+    padding-top: 4px;
+    text-align: center;
+    &__btn {
+      font-size: $mdDefaultFontSize;
+      margin-right: 5px;
+      width: $mdButtonWidth;
+    }
+  }
+  .speed {
+    float: right;
+    padding-top: 4px;
+    &__label {
+      display: inline-block;
+      text-align: right;
+      margin-right: 4px;
+      width: 140px;
+    }
+    &__value {
+      display: inline-block;
+      width: 32px;
+    }&__slider {
+      -webkit-appearance: none;
+      margin-top: 4px;
+      width: 80%;
+    }
+  }
+  .game-area {
+    margin-top: $mdHeaderHeight;
+  }
+  .overlay {
+    height: calc(100% - 90px);
+    &__message {
+      font-size: $mdPauseMsgFontSize;
+      transform: translateY(-45px); // 45px == Half the header height
+    }
+  }
+}
+
+@media (min-width:768px) {
+  header {
+    padding: 15px 50px 10px 50px;
+  }
+}
